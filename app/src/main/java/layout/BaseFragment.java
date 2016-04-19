@@ -136,7 +136,6 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
                     Results[] results = response.body().getResults();
                     resultsList = new ArrayList<Results>(Arrays.asList(results));
                     recyclerAdapter.addMovieList(resultsList);
-                    Toast.makeText(getActivity(), "Data Fatch", Toast.LENGTH_SHORT).show();
                 }
             }
 
