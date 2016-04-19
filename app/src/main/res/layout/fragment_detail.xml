@@ -1,0 +1,143 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#cdcecf"
+             android:id="@+id/fragment_detail"
+             tools:context="layout.DetailFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:id="@+id/details"
+            android:gravity="center">
+
+            <TextView
+                style="@style/TextBlue"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/movieTitle"
+                android:textSize="18dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/moviePoster"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="top"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView style="@style/TextView_Medium"
+                                  android:id="@+id/releaseDate"
+                                  android:layout_gravity="center"
+                                  android:textSize="24dp"
+                            />
+
+                        <TextView style="@style/TextView_Medium"
+                                  android:id="@+id/rating_Percent"
+                            />
+
+                        <Button
+                            android:layout_width="63dp"
+                            android:layout_height="61dp"
+                            android:id="@+id/BTN_favorite"
+                            android:backgroundTint="#ffcd45"
+                            android:background="@android:drawable/btn_star"
+                            android:backgroundTintMode="multiply"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBar"
+                android:rating="10"
+                android:numStars="5"
+                android:layout_gravity="center"
+                android:animationResolution="@integer/abc_max_action_buttons"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_gravity="top"
+                android:background="#eff2f2"
+                android:padding="10dp">
+
+                <TextView style="@style/TextView_Medium"
+                          android:text="@string/overview_label"
+                          android:id="@+id/overViewTitle"
+                          android:paddingTop="5dp"/>
+
+                <TextView style="@style/TextView_Small"
+                          android:id="@+id/overViewDetail"
+                          android:layout_width="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/TextView_Medium"
+                    android:text="@string/trailer"
+                    android:id="@+id/TrailerCaption"
+                    />
+
+                <TextView
+                    style="@style/TextView_Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:id="@+id/TXT_trailerstatus"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+
+                <Button
+                    android:layout_width="68dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/BTN_play"
+                    android:background="@android:drawable/ic_media_play"
+                    android:backgroundTint="#22d2d8"
+                    android:backgroundTintMode="multiply"
+                    />
+                </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
