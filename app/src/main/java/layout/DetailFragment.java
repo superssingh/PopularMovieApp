@@ -149,7 +149,6 @@ public class DetailFragment extends android.app.Fragment {
 
     // getting trailer key ----------------------------------
     public void getTrailer(String id){
-        Toast.makeText(getActivity(), id, Toast.LENGTH_LONG).show();
         ServiceManager serviceManager= new ServiceManager();
         Call<MovieTrailer> trailerCall= serviceManager.getJSONData().getMovieTrailer(id);
         trailerCall.enqueue(new Callback<MovieTrailer>() {
@@ -163,8 +162,6 @@ public class DetailFragment extends android.app.Fragment {
                         play.setVisibility(View.INVISIBLE);
                     } else {
                         videoKey = response.body().getTrailerResults()[0].getKey();
-                        Toast.makeText(getActivity(), videoKey,
-                                Toast.LENGTH_SHORT).show();
                         trailerStatus.setText("Available");
                         play.setVisibility(View.VISIBLE);
                     }
