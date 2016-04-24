@@ -1,4 +1,4 @@
-package com.santossingh.popularmovieapp.Models;
+package com.santossingh.popularmovieapp.Models.TrailerModels;
 
 import com.google.gson.annotations.SerializedName;
 

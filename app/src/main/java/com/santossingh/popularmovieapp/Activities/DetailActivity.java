@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.santossingh.popularmovieapp.Fragments.DetailFragment;
 import com.santossingh.popularmovieapp.R;
-
-import layout.DetailFragment;
 
 public class DetailActivity extends YouTubeBaseActivity {
 
@@ -16,7 +15,7 @@ public class DetailActivity extends YouTubeBaseActivity {
         setContentView(R.layout.activity_detail);
 
         Intent intent= getIntent();
-        DetailFragment detailFragment=(DetailFragment) getFragmentManager()
+        DetailFragment detailFragment =(DetailFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_detail);
 
         detailFragment.setDataforHandsetUI(intent);

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.santossingh.popularmovieapp.Adapters.Utilities.AnimationUtil;
 import com.santossingh.popularmovieapp.Database.FavoriteMovies;
 import com.santossingh.popularmovieapp.R;
-import com.santossingh.popularmovieapp.Services.Constant;
+import com.santossingh.popularmovieapp.Database.Constant;
 import com.santossingh.popularmovieapp.Database.ContentProvider.ContentProvider;
 import com.squareup.picasso.Picasso;
 
@@ -51,6 +51,7 @@ public class FavoriteRecycleAdapter extends RecyclerView.Adapter<FavoriteRecycle
     @Override
     public void onBindViewHolder(Holder holder, final int position) {
         final FavoriteMovies currentMovie= results.get(position);
+        final int movie_id=currentMovie.getMovie_id();
         String poster_path=currentMovie.getBackdrop_path();
         String movie_name=currentMovie.getTitle();
 
@@ -93,9 +94,7 @@ public class FavoriteRecycleAdapter extends RecyclerView.Adapter<FavoriteRecycle
 
         @Override
         public void onClick(View v) {
-
         }
-
     }
 
     private void delete(int position){

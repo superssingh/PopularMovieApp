@@ -8,7 +8,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.santossingh.popularmovieapp.R;
-import com.santossingh.popularmovieapp.Services.Constant;
+import com.santossingh.popularmovieapp.Database.Constant;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

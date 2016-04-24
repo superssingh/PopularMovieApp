@@ -1,4 +1,4 @@
-package layout;
+package com.santossingh.popularmovieapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,23 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.santossingh.popularmovieapp.Activities.ReviewActivity;
 import com.santossingh.popularmovieapp.Activities.VideoActivity;
-import com.santossingh.popularmovieapp.Models.MovieTrailer;
-import com.santossingh.popularmovieapp.Models.Results;
-import com.santossingh.popularmovieapp.R;
 import com.santossingh.popularmovieapp.Database.ContentProvider.ContentProvider;
-import com.santossingh.popularmovieapp.Services.ServiceManager;
+import com.santossingh.popularmovieapp.Models.Results;
+import com.santossingh.popularmovieapp.Models.TrailerModels.MovieTrailer;
+import com.santossingh.popularmovieapp.R;
+import com.santossingh.popularmovieapp.Services.DataManager;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by Stark on 24/04/2016.
+ */
 public class DetailFragment extends android.app.Fragment {
 
     TextView movie_Title;
@@ -35,10 +38,12 @@ public class DetailFragment extends android.app.Fragment {
     TextView movie_Overview;
     Button favorite;
     Button play;
+    Button review;
     TextView trailerStatus;
-    LinearLayout linearLayout;
 
     private String videoKey=null;
+    private int movie_id;
+
 
     public DetailFragment() {
         setHasOptionsMenu(true);
@@ -49,24 +54,23 @@ public class DetailFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_detail,container,false);
 
-        linearLayout=(LinearLayout)view.findViewById(R.id.details);
-            movie_Title=(TextView)view.findViewById(R.id.movieTitle);
-            movie_Poster=(ImageView)view.findViewById(R.id.moviePoster);
-            movie_ReleaseDate=(TextView)view.findViewById(R.id.releaseDate);
-            movie_UsersRating=(TextView)view.findViewById(R.id.rating_Percent);
-            movie_RatingStars=(RatingBar)view.findViewById(R.id.ratingBar);
-            movie_Overview=(TextView)view.findViewById(R.id.overViewDetail);
-            favorite=(Button)view.findViewById(R.id.BTN_favorite);
-            play=(Button)view.findViewById(R.id.BTN_play);
-            trailerStatus=(TextView)view.findViewById(R.id.TXT_trailerstatus);
+        movie_Title=(TextView)view.findViewById(R.id.movieTitle);
+        movie_Poster=(ImageView)view.findViewById(R.id.moviePoster);
+        movie_ReleaseDate=(TextView)view.findViewById(R.id.releaseDate);
+        movie_UsersRating=(TextView)view.findViewById(R.id.rating_Percent);
+        movie_RatingStars=(RatingBar)view.findViewById(R.id.ratingBar);
+        movie_Overview=(TextView)view.findViewById(R.id.overViewDetail);
+        favorite=(Button)view.findViewById(R.id.BTN_favorite);
+        play=(Button)view.findViewById(R.id.BTN_play);
+        review=(Button)view.findViewById(R.id.BTN_review);
+        trailerStatus=(TextView)view.findViewById(R.id.TXT_trailerstatus);
 
-            linearLayout.setVisibility(View.INVISIBLE);
         return view;
     }
 
     // Method for Tablet screen--------------
-    public void UpdateTabletUI(final Results result){
-        linearLayout.setVisibility(View.VISIBLE);
+    public void updateTabletUI(final Results result){
+        movie_id=result.getId();
         Picasso.with(getActivity())
                 .load("http://image.tmdb.org/t/p/w185/" + result.getPoster_path())
                 .resize(250, 320)
@@ -75,13 +79,12 @@ public class DetailFragment extends android.app.Fragment {
                 .into(movie_Poster);
 
         movie_Title.setText(result.getTitle());
-        movie_ReleaseDate.setText(result.getRelease_date().substring(0,4));
+        movie_ReleaseDate.setText(result.getRelease_date().substring(0, 4));
         movie_UsersRating.setText(result.getVote_average() + "/10");
         movie_RatingStars.setRating(result.getVote_average() * 5 / 10);
         movie_Overview.setText(result.getOverview());
 
         getTrailer(Integer.toString(result.getId())); // getting trailer key into videoKey varialbe
-
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,13 +101,22 @@ public class DetailFragment extends android.app.Fragment {
                 startActivity(intent);
             }
         });
+
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), ReviewActivity.class)
+                        .putExtra("movie_id", Integer.toString(movie_id));
+                startActivity(intent);
+            }
+        });
+
     }
 
     // Method for Handset screen--------------
     public void setDataforHandsetUI(final Intent intent){
-        linearLayout.setVisibility(View.VISIBLE);
+        movie_id=intent.getIntExtra("movie_Id", 0);
 
-        int movie_id=intent.getIntExtra("movie_Id", 0);
         String movie_name=intent.getStringExtra("movie_Name");
         String movie_poster=intent.getStringExtra("poster_Path");
         String movie_backposter=intent.getStringExtra("back_poster_Path");
@@ -132,7 +144,7 @@ public class DetailFragment extends android.app.Fragment {
             @Override
             public void onClick(View v) {
                 ContentProvider contentProvider = new ContentProvider();
-                contentProvider.addMovieIntent(v.getContext(), intent);
+                contentProvider.addMovieIntent(v.getContext(),intent);
             }
         });
 
@@ -144,13 +156,21 @@ public class DetailFragment extends android.app.Fragment {
                 startActivity(intent);
             }
         });
-    }
 
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), ReviewActivity.class)
+                        .putExtra("movie_id", Integer.toString(movie_id));
+                startActivity(intent);
+            }
+        });
+    }
 
     // getting trailer key ----------------------------------
     public void getTrailer(String id){
-        ServiceManager serviceManager= new ServiceManager();
-        Call<MovieTrailer> trailerCall= serviceManager.getJSONData().getMovieTrailer(id);
+        DataManager dataManager = new DataManager();
+        Call<MovieTrailer> trailerCall= dataManager.getJSONData().getMovieTrailer(id);
         trailerCall.enqueue(new Callback<MovieTrailer>() {
             @Override
             public void onResponse(Call<MovieTrailer> call, Response<MovieTrailer> response) {

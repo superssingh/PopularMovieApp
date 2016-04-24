@@ -1,4 +1,4 @@
-package com.santossingh.popularmovieapp.Models;
+package com.santossingh.popularmovieapp.Models.TrailerModels;
 
 /**
  * Created by Stark on 18/04/2016.

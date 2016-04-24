@@ -1,4 +1,4 @@
-package com.santossingh.popularmovieapp.Services.Interfaces;
+package com.santossingh.popularmovieapp.Interfaces;
 
 /**
  * Created by Stark on 18/04/2016.

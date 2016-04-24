@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_detail"
-        class="layout.DetailFragment"
-        tools:context="layout.DetailFragment"
+        class="com.santossingh.popularmovieapp.Fragments.DetailFragment"
+        tools:context=".Fragments.DetailFragment"
         tools:layout="@layout/fragment_detail"/>
 
 </LinearLayout>

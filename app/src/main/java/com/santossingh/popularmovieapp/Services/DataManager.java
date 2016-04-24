@@ -1,7 +1,8 @@
 package com.santossingh.popularmovieapp.Services;
 
-import com.santossingh.popularmovieapp.Services.Interfaces.MovieAPI;
-import com.santossingh.popularmovieapp.Services.Interfaces.MoviesService;
+import com.santossingh.popularmovieapp.Database.Constant;
+import com.santossingh.popularmovieapp.Interfaces.MovieAPI;
+import com.santossingh.popularmovieapp.Interfaces.MoviesService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -9,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Stark on 18/04/2016.
  */
-public class ServiceManager implements MoviesService {
+public class DataManager implements MoviesService {
     private MovieAPI movies;
 
     public void RetrofitOutput(){

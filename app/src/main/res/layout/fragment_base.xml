@@ -1,10 +1,11 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:id="@+id/fragment_base"
-            android:background="@color/Black"
-             tools:context="layout.BaseFragment">
+             android:orientation="vertical"
+             android:background="@color/Black"
+             tools:context=".Fragments.BaseFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -13,5 +14,4 @@
         android:scrollbars="none"
         />
 
-
-</GridLayout>
+</LinearLayout>

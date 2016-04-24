@@ -1,19 +1,21 @@
 <resources>
     <string name="app_name">PopularMovieApp</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_favorite">FavoriteMoviesList</string>
-    <string name="title_activity_video">VideoTrailer</string>
+    <string name="title_activity_favorite">FavoriteMovies</string>
+    <string name="title_activity_video">MovieTrailer</string>
 
     <string name="TopRated">Highest Rated</string>
     <string name="Popular">Most Popular</string>
     <string name="Favorite">My Favorite</string>
 
-    <!-- Strings related to Detail Activity -->
+    <!-- Strings related to DetailFragment Activity -->
     <string name="overview_label">Overview</string>
-    <string name="trailer">Trailer:</string>
-    <string name="rating_label">Vote Rating</string>
     <string name="release_label">Release Date</string>
+    <string name="rating_label">Vote Rating</string>
+    <string name="trailer_label">Trailer : </string>
+    <string name="review_label">Movie Reviews</string>
+    <string name="review_button">Show Reviews</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_detail">MovieDetail</string>
+    <string name="title_activity_review">MovieReviews</string>
 </resources>

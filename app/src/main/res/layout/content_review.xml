@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e1e0e0"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Activities.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.santossingh.popularmovieapp.Activities.ReviewActivity"
+    tools:showIn="@layout/activity_review">
 
-    <fragment
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.santossingh.popularmovieapp.Fragments.BaseFragment"
-        android:id="@+id/fragment_base"
-        tools:layout="@layout/fragment_base">
-    </fragment>
+        android:layout_height="wrap_content"
+        android:id="@+id/ReviewRecyclerView"
+        android:scrollbars="vertical"
+        />
 
-</FrameLayout>
+</LinearLayout>

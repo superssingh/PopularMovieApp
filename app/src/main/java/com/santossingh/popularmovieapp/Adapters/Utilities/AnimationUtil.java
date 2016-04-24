@@ -19,4 +19,15 @@ public class AnimationUtil {
         animationSet.playTogether(animatorY);
         animationSet.start();
     }
+
+    public static void animate2(RecyclerView.ViewHolder holder, boolean down){
+        AnimatorSet animationSet=new AnimatorSet();
+        ObjectAnimator animatorY=ObjectAnimator.ofFloat(holder.itemView,
+                "translationX",
+                down==true ? 200 : -200, 0);
+        animatorY.setDuration(1000);
+
+        animationSet.playTogether(animatorY);
+        animationSet.start();
+    }
 }

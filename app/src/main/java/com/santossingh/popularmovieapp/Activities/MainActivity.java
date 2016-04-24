@@ -6,16 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.santossingh.popularmovieapp.Adapters.RecycleAdapter;
+import com.santossingh.popularmovieapp.Fragments.BaseFragment;
+import com.santossingh.popularmovieapp.Fragments.DetailFragment;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import layout.BaseFragment;
-import layout.DetailFragment;
 
 public class MainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener{
 
@@ -34,14 +33,22 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
     }
 
     @Override
+    public void onTabletListener(Results result) {
+        DetailFragment detailFragment = (DetailFragment) getFragmentManager()
+                .findFragmentById(R.id.fragment_detail);
+
+        if (detailFragment != null) {
+            detailFragment.updateTabletUI(result);
+        }
+    }
+
+    @Override
     public void onFragmentInteraction(Results currentMovie) {
 
         DetailFragment detailFragment = (DetailFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_detail);
 
-        if (detailFragment== null) {
-            Toast.makeText(this, "single view", Toast.LENGTH_SHORT).show();
-
+        if (detailFragment == null) {
             Intent intent = new Intent(this, DetailActivity.class)
                     .putExtra("movie_Id", currentMovie.getId())
                     .putExtra("movie_Name", currentMovie.getTitle())
@@ -52,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
                     .putExtra("overview", currentMovie.getOverview());
             startActivity(intent);
         } else {
-            detailFragment.UpdateTabletUI(currentMovie);
+            detailFragment.updateTabletUI(currentMovie);
         }
     }
 
@@ -65,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

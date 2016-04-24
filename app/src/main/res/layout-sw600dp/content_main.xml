@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/fragment_base"
-        class="layout.BaseFragment"
+        class="com.santossingh.popularmovieapp.Fragments.BaseFragment"
         tools:layout="@layout/fragment_base"/>
 
     <fragment
@@ -24,8 +24,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/fragment_detail"
-        class="layout.DetailFragment"
-        tools:context="layout.DetailFragment"
+        class="com.santossingh.popularmovieapp.Fragments.DetailFragment"
+        tools:context=".Fragments.DetailFragment"
         tools:layout="@layout/fragment_detail"/>
 
 </LinearLayout>
