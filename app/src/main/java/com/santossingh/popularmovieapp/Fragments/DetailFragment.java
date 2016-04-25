@@ -21,6 +21,8 @@ import com.santossingh.popularmovieapp.R;
 import com.santossingh.popularmovieapp.Services.DataManager;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,16 +32,16 @@ import retrofit2.Response;
  */
 public class DetailFragment extends android.app.Fragment {
 
-    TextView movie_Title;
-    ImageView movie_Poster;
-    TextView movie_ReleaseDate;
-    TextView movie_UsersRating;
-    RatingBar movie_RatingStars;
-    TextView movie_Overview;
-    Button favorite;
-    Button play;
-    Button review;
-    TextView trailerStatus;
+    @Bind(R.id.movieTitle) TextView movie_Title;
+    @Bind(R.id.moviePoster) ImageView movie_Poster;
+    @Bind(R.id.releaseDate) TextView movie_ReleaseDate;
+    @Bind(R.id.rating_Percent) TextView movie_UsersRating;
+    @Bind(R.id.ratingBar) RatingBar movie_RatingStars;
+    @Bind(R.id.overViewDetail) TextView movie_Overview;
+    @Bind(R.id.BTN_favorite) Button favorite;
+    @Bind(R.id.BTN_play) Button play;
+    @Bind(R.id.BTN_review) Button review;
+    @Bind(R.id.TXT_trailerstatus) TextView trailerStatus;
 
     private String videoKey=null;
     private int movie_id;
@@ -53,18 +55,7 @@ public class DetailFragment extends android.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_detail,container,false);
-
-        movie_Title=(TextView)view.findViewById(R.id.movieTitle);
-        movie_Poster=(ImageView)view.findViewById(R.id.moviePoster);
-        movie_ReleaseDate=(TextView)view.findViewById(R.id.releaseDate);
-        movie_UsersRating=(TextView)view.findViewById(R.id.rating_Percent);
-        movie_RatingStars=(RatingBar)view.findViewById(R.id.ratingBar);
-        movie_Overview=(TextView)view.findViewById(R.id.overViewDetail);
-        favorite=(Button)view.findViewById(R.id.BTN_favorite);
-        play=(Button)view.findViewById(R.id.BTN_play);
-        review=(Button)view.findViewById(R.id.BTN_review);
-        trailerStatus=(TextView)view.findViewById(R.id.TXT_trailerstatus);
-
+        ButterKnife.bind(this,view);
         return view;
     }
 
