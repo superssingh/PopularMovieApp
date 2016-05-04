@@ -3,7 +3,6 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="#cdcecf"
-             android:layout_margin="5dp"
              android:id="@+id/fragment_detail"
              tools:context=".Fragments.DetailFragment">
 
@@ -148,7 +147,7 @@
                     android:padding="10dp"
                     android:layout_gravity="center"
                     android:textColor="#faf7f7"
-                    android:background="#224b9c"/>
+                    android:background="#09829b"/>
         </LinearLayout>
     </ScrollView>
 
