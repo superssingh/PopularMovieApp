@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.santossingh.popularmovieapp.Activities.FavoriteActivity;
 import com.santossingh.popularmovieapp.Adapters.RecycleAdapter;
@@ -154,15 +154,15 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
                     Results[] results = response.body().getResults();
                     resultsList = new ArrayList<Results>(Arrays.asList(results));
                     recyclerAdapter.addMovieList(resultsList);
-                    Results firstresult=resultsList.get(0);
-                    mListener.onTabletListener(firstresult);
-
+                    Results firstResult=resultsList.get(0);
+                    mListener.onTabletListener(firstResult);
                 }
             }
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(rootView, R.string.Network_error, Snackbar.LENGTH_LONG)
+                        .show();
             }
         });
     }

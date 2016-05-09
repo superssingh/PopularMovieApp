@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.santossingh.popularmovieapp.Adapters.FavoriteRecycleAdapter;
 import com.santossingh.popularmovieapp.Adapters.Utilities.AutofitGridlayout;
@@ -17,10 +19,11 @@ import io.realm.RealmResults;
 
 public class FavoriteActivity extends AppCompatActivity {
     private FavoriteRecycleAdapter recyclerAdapter;
-    @Bind(R.id.recyclerListView)
-    RecyclerView recyclerView;
+    @Bind(R.id.recyclerListView) RecyclerView recyclerView;
+    @Bind(R.id.TXT_emptyList) TextView emptyText;
     private Realm realm;
     private RealmResults<FavoriteMovies> results;
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +34,16 @@ public class FavoriteActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         results = realm.where(FavoriteMovies.class).findAll();
 
-        configRecycleView();
+        if (results.size()==0){
+            recyclerView.setVisibility(View.GONE);
+            emptyText.setText(R.string.Favorite_empty_list);
+            emptyText.setVisibility(View.VISIBLE);
+        }else{
+            configRecycleView(results);
+        }
+
     }
-    private void configRecycleView() {
+    private void configRecycleView(RealmResults<FavoriteMovies> results) {
         AutofitGridlayout layoutManager = new AutofitGridlayout(FavoriteActivity.this, 320 );
         recyclerView.setHasFixedSize(true);
         recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
@@ -41,6 +51,5 @@ public class FavoriteActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
     }
-
 }
 

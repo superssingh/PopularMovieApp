@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">PopularMovieApp</string>
-    <string name="title_activity_favorite">FavoriteMovies</string>
-    <string name="title_activity_video">MovieTrailer</string>
+    <string name="app_name">Popular Movie App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_favorite">Favorite Movies</string>
+    <string name="title_activity_video">Movie Trailer</string>
+    <string name="title_activity_detail">Movie Detail</string>
+    <string name="title_activity_review">Movie Reviews</string>
 
     <string name="TopRated">Highest Rated</string>
     <string name="Popular">Most Popular</string>
@@ -15,7 +18,8 @@
     <string name="review_label">Movie Reviews</string>
     <string name="review_button">Show Reviews</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_detail">MovieDetail</string>
-    <string name="title_activity_review">MovieReviews</string>
+    <string name="Favorite_empty_list">Favorite list is empty!</string>
+    <string name="Review_empty">Reviews not available!</string>
+    <string name="Network_error">Internet connection unavailable!</string>
+
 </resources>

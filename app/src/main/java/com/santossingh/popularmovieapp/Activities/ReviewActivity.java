@@ -58,9 +58,10 @@ public class ReviewActivity extends AppCompatActivity {
                         resultsList = new ArrayList<ReviewsResult>(Arrays.asList(results));
                         recyclerAdapter.addReviewsList(resultsList);
                     }else {
-                        Toast.makeText(ReviewActivity.this, "Reviews not found!", Toast
-                                .LENGTH_SHORT)
+                        Toast.makeText(ReviewActivity.this, R.string.Review_empty, Toast
+                                .LENGTH_LONG)
                                 .show();
+                        finish();
                     }
                 }
             }
