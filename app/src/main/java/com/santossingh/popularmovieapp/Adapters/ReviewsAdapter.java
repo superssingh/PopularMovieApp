@@ -71,7 +71,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Holder> 
 
         @Override
         public void onClick(View v) {
-
         }
     }
 }

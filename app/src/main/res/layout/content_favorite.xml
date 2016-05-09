@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical"/>
 
-
     <TextView
         android:layout_below="@+id/recyclerView"
         android:visibility="invisible"
