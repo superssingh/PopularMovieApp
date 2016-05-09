@@ -20,7 +20,6 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent= getIntent();
         DetailFragment detailFragment =(DetailFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_detail);
-
         detailFragment.setDataforHandsetUI(intent);
     }
 
