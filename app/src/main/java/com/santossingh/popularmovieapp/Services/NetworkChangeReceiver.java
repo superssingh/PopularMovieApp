@@ -14,6 +14,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         boolean status=Utils.getConnectionStatus(context);
         if(!status){
+            context.startActivity(intent);
             Toast.makeText(context,"Network Available !",Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(context,"Network Not Available !",Toast.LENGTH_SHORT).show();

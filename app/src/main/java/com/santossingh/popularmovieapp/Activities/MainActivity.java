@@ -13,17 +13,18 @@ import com.santossingh.popularmovieapp.Fragments.BaseFragment;
 import com.santossingh.popularmovieapp.Fragments.DetailFragment;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
-import com.santossingh.popularmovieapp.Services.Utils;
+import com.santossingh.popularmovieapp.Services.NetworkChangeReceiver;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener{
 
-    private Realm realm;
-    private Results results;
     RecycleAdapter recyclerAdapter;
     BroadcastReceiver receiver;
+    Intent intent;
+    private Realm realm;
+    private Results results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,8 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
-        boolean status= Utils.getConnectionStatus(this);
-        if(!status){
-            Intent intent =new Intent(this,NoActivity.class);
-            startActivity(intent);
-        }
+        NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver();
+        networkChangeReceiver.onReceive(getApplicationContext(), intent);
     }
 
 

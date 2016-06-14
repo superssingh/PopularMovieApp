@@ -2,7 +2,10 @@ package com.santossingh.popularmovieapp.Fragments;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -38,20 +41,20 @@ import retrofit2.Response;
  */
 public class BaseFragment extends android.app.Fragment implements RecycleAdapter.GetDataFromAdapter {
 
+    private static final String STATE_MOVIES = "state_movies";
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-    private static final String STATE_MOVIES = "state_movies";
+    BroadcastReceiver broadcastReceiver = null;
     private View rootView;
     private DataManager dataManager;
     private RecycleAdapter recyclerAdapter;
     private MovieResponse movieResponse;
     private List<Results> resultsList;
-
     private Results results;
     private OnFragmentInteractionListener mListener;
     private int menuItemPosition;
     private Intent intent;
-    BroadcastReceiver broadcastReceiver=null;
+    private ConnectivityManager cm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,7 +112,19 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
         resultsList=new ArrayList<Results>();
         configRecycleView();
 
-            if (savedInstanceState==null){
+        cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (isConnected) {
+            Toast.makeText(getActivity(), "ON", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "OFF", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (savedInstanceState == null) {
                 makeService("POPULAR");
                 menuItemPosition = R.id.most_Popular;
             }else{
@@ -119,7 +134,7 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
             }
 
         return rootView;
-    };
+    }
 
     private void configRecycleView() {
         AutoFitGridLayout layoutManager = new AutoFitGridLayout(getActivity(), 200 );

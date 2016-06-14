@@ -20,7 +20,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -61,6 +61,7 @@
         </receiver>
 
         <activity android:name=".Activities.NoActivity">
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
         </activity>
     </application>
 
