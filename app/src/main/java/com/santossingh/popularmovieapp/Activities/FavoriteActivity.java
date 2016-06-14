@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.santossingh.popularmovieapp.Adapters.FavoriteRecycleAdapter;
-import com.santossingh.popularmovieapp.Adapters.Utilities.AutofitGridlayout;
+import com.santossingh.popularmovieapp.Utilities.AutoFitGridLayout;
 import com.santossingh.popularmovieapp.Database.FavoriteMovies;
 import com.santossingh.popularmovieapp.R;
 
@@ -18,12 +18,14 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class FavoriteActivity extends AppCompatActivity {
-    private FavoriteRecycleAdapter recyclerAdapter;
+
     @Bind(R.id.recyclerListView) RecyclerView recyclerView;
     @Bind(R.id.TXT_emptyList) TextView emptyText;
+    private FavoriteRecycleAdapter recyclerAdapter;
     private Realm realm;
     private RealmResults<FavoriteMovies> results;
     View v;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
     }
     private void configRecycleView(RealmResults<FavoriteMovies> results) {
-        AutofitGridlayout layoutManager = new AutofitGridlayout(FavoriteActivity.this, 320 );
+        AutoFitGridLayout layoutManager = new AutoFitGridLayout(FavoriteActivity.this, 320 );
         recyclerView.setHasFixedSize(true);
         recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         recyclerAdapter = new FavoriteRecycleAdapter(this,results);

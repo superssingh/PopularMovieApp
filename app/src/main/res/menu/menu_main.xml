@@ -18,11 +18,12 @@
             android:title="@string/TopRated"
             app:showAsAction="never"/>
 
-        <item
-            android:id="@+id/favoriteList"
-            android:orderInCategory="3"
-            android:title="@string/Favorite"
-            app:showAsAction="never"/>
     </group>
+
+    <item
+        android:id="@+id/favoriteList"
+        android:orderInCategory="3"
+        android:title="@string/Favorite"
+        app:showAsAction="never"/>
 
 </menu>

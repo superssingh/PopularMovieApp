@@ -64,7 +64,6 @@ public class FavoriteMovies extends RealmObject {
         this.backdrop_path = backdrop_path;
     }
 
-
     public float getVote_average() {
         return vote_average;
     }
@@ -72,6 +71,4 @@ public class FavoriteMovies extends RealmObject {
     public void setVote_average(float vote_average) {
         this.vote_average = vote_average;
     }
-
-
 }

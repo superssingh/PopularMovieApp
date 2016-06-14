@@ -21,6 +21,7 @@
 
     <string name="Favorite_empty_list">Favorite list is empty!</string>
     <string name="Review_empty">Reviews not available!</string>
-    <string name="Network_error">Internet connection unavailable!</string>
+    <string name="Network_error">Network Error!</string>
+    <string name="No_Internet">Internet connection unavailable! Please Turn ON Internet</string>
 
 </resources>

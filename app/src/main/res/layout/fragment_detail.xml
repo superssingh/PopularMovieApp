@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        >
+        android:background="@color/blue1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="#0c3939"
+                android:background="@color/accent_material_light"
                 android:gravity="center">
 
                 <ImageView
@@ -139,15 +139,16 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
                     android:id="@+id/BTN_review"
                     android:text="@string/review_button"
                     android:textSize="14dp"
                     android:padding="10dp"
                     android:layout_gravity="center"
                     android:textColor="#faf7f7"
-                    android:background="#09829b"/>
+                    android:background="@drawable/round_button1"
+                    />
         </LinearLayout>
     </ScrollView>
 

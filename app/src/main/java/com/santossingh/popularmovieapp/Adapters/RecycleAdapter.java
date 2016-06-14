@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.santossingh.popularmovieapp.Adapters.Utilities.AnimationUtil;
+import com.santossingh.popularmovieapp.Utilities.AnimationUtil;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
 import com.santossingh.popularmovieapp.Database.Constant;
@@ -23,10 +23,11 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder>{
     private List<Results> resultsList=new ArrayList<Results>();
     private View rcView;
     private Context context;
-    int preposition;
-
     private GetDataFromAdapter callback;
     private Results currentMovie;
+
+    int preposition;
+
     public interface GetDataFromAdapter{
         void onCurrentMovie(Results currentMovie);
     }
@@ -37,7 +38,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder>{
     }
 
     @Override
-    // create View object and pass it on Holder class constructor
+// create View object and pass it on Holder class constructor
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         rcView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_image_fragment, parent, false);
@@ -87,6 +88,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder>{
         public void onClick(View v) {
             int position = getAdapterPosition();
             currentMovie=resultsList.get(position);
+// callback of onCurrentMovie BaseFragment
             callback.onCurrentMovie(currentMovie);
         }
     }

@@ -20,7 +20,6 @@ public class ContentProvider {
     // For write data on background thread which avoid blocking the UI thread----
     // Adding current movie info which comes from Intent (Handset view)----------
 
-
     public void addMovieIntent(final Context context, final Intent intent) {
         this.context=context;
         final int movie_id= intent.getIntExtra("movie_Id", 0);
@@ -50,7 +49,7 @@ public class ContentProvider {
                 }, new Realm.Transaction.OnError() {
                     @Override
                     public void onError(Throwable error) {
-    //delete method (for un-favorite) when it already exists--------------------------
+//delete method (for un-favorite) when it already exists--------------------------
                         realm.beginTransaction();
                         movie.clear();
                         realm.commitTransaction();
@@ -84,7 +83,6 @@ public class ContentProvider {
                 public void onSuccess() {
                     Toast.makeText(context, "Movie marked as favorite!", Toast.LENGTH_SHORT)
                             .show();
-
                 }
             }, new Realm.Transaction.OnError() {
                 @Override

@@ -1,5 +1,6 @@
 package com.santossingh.popularmovieapp.Activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.santossingh.popularmovieapp.Fragments.BaseFragment;
 import com.santossingh.popularmovieapp.Fragments.DetailFragment;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
+import com.santossingh.popularmovieapp.Services.Utils;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
     private Realm realm;
     private Results results;
     RecycleAdapter recyclerAdapter;
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +31,23 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
+
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder
+                (MainActivity.this)
+                .build();
         Realm.setDefaultConfiguration(realmConfiguration);
+
+        boolean status= Utils.getConnectionStatus(this);
+        if(!status){
+            Intent intent =new Intent(this,NoActivity.class);
+            startActivity(intent);
+        }
     }
+
 
     @Override
     public void onTabletListener(Results result) {
+
         DetailFragment detailFragment = (DetailFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_detail);
 
@@ -44,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
 
     @Override
     public void onFragmentInteraction(Results currentMovie) {
-
         DetailFragment detailFragment = (DetailFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_detail);
 
@@ -72,7 +85,12 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.favoriteList) {
+            Intent intent=new Intent(MainActivity.this, FavoriteActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

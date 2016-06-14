@@ -1,4 +1,4 @@
-package com.santossingh.popularmovieapp.Adapters.Utilities;
+package com.santossingh.popularmovieapp.Utilities;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.santossingh.popularmovieapp.Activities.FavoriteActivity;
-import com.santossingh.popularmovieapp.Adapters.Utilities.AnimationUtil;
+import com.santossingh.popularmovieapp.Utilities.AnimationUtil;
 import com.santossingh.popularmovieapp.Database.Constant;
 import com.santossingh.popularmovieapp.Database.FavoriteMovies;
 import com.santossingh.popularmovieapp.R;

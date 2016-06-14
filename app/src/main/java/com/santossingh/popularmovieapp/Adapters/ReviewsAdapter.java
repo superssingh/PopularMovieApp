@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.santossingh.popularmovieapp.Adapters.Utilities.AnimationUtil;
+import com.santossingh.popularmovieapp.Utilities.AnimationUtil;
 import com.santossingh.popularmovieapp.Models.ReviewsModels.ReviewsResult;
 import com.santossingh.popularmovieapp.R;
 
