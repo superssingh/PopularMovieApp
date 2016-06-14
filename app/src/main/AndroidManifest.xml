@@ -60,9 +60,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activities.NoActivity">
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-        </activity>
     </application>
 
 </manifest>

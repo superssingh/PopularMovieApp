@@ -6,8 +6,8 @@ package com.santossingh.popularmovieapp.Database;
 public class Constant {
     public static final class HTTP {
 // API-Keys------------------------
-        public static final String MOVIE_API_KEY = "f074b4f71849509c940cd25d16e9cab9";
-        public static final String YOUTUBE_API_KEY = "AIzaSyBXOJsdlSoSMnZOxIR_b73bNhiwoxB2pdI";
+public static final String MOVIE_API_KEY = "xxxxxxxxxxx";
+        public static final String YOUTUBE_API_KEY = "xxxxxxxxxxx";
 //URLs-----------------------------
         public static final String BASE_URL="http://api.themoviedb.org";
         public static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185/";

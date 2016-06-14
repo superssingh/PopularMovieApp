@@ -13,7 +13,6 @@ import com.santossingh.popularmovieapp.Fragments.BaseFragment;
 import com.santossingh.popularmovieapp.Fragments.DetailFragment;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
-import com.santossingh.popularmovieapp.Services.NetworkChangeReceiver;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -38,10 +37,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
-        NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver();
-        networkChangeReceiver.onReceive(getApplicationContext(), intent);
     }
-
 
     @Override
     public void onTabletListener(Results result) {
