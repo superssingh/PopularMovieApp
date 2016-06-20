@@ -18,6 +18,7 @@ public class VideoActivity extends YouTubeBaseActivity {
     YouTubePlayerView youTubePlayerView;
     private YouTubePlayer.OnInitializedListener onInitializedListener;
     private String videoKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +35,12 @@ public class VideoActivity extends YouTubeBaseActivity {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 youTubePlayer.loadVideo(videoKey);
             }
-
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
                 Toast.makeText(VideoActivity.this, youTubeInitializationResult.toString(), Toast
                         .LENGTH_SHORT).show();
             }
         };
-
         youTubePlayerView.initialize(Constant.HTTP.YOUTUBE_API_KEY, onInitializedListener);
     }
 }

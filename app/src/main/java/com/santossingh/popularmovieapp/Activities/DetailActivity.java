@@ -18,9 +18,7 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent= getIntent();
-        DetailFragment detailFragment =(DetailFragment) getFragmentManager()
-                .findFragmentById(R.id.fragment_detail);
+        DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment_detail);
         detailFragment.setDataforHandsetUI(intent);
     }
-
 }

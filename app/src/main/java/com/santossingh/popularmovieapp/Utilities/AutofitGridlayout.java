@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
  * Created by Stark on 19/04/2016.
  */
 public class AutoFitGridLayout extends GridLayoutManager {
-
     private int minItemWidth;
 
     public AutoFitGridLayout(Context context, int minItemWidth) {

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.santossingh.popularmovieapp.Database.FavoriteMovies;
 import com.santossingh.popularmovieapp.Models.Results;
+import com.santossingh.popularmovieapp.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -43,17 +44,17 @@ public class ContentProvider {
                 }, new Realm.Transaction.OnSuccess() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(context, "Movie marked favorite!", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, R.string.FavoriteMarked, Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }, new Realm.Transaction.OnError() {
                     @Override
                     public void onError(Throwable error) {
-//delete method (for un-favorite) when it already exists--------------------------
+                        // delete method (for un-favorite) when it already exists--
                         realm.beginTransaction();
                         movie.clear();
                         realm.commitTransaction();
-                        Toast.makeText(context, "Movie marked as un-favorite!", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, R.string.UnFavorite, Toast.LENGTH_SHORT)
                                 .show();
                     }
                 });
@@ -81,7 +82,7 @@ public class ContentProvider {
             }, new Realm.Transaction.OnSuccess() {
                 @Override
                 public void onSuccess() {
-                    Toast.makeText(context, "Movie marked as favorite!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, R.string.FavoriteMarked, Toast.LENGTH_SHORT)
                             .show();
                 }
             }, new Realm.Transaction.OnError() {
@@ -91,7 +92,7 @@ public class ContentProvider {
                     realm.beginTransaction();
                     movie.clear();
                     realm.commitTransaction();
-                    Toast.makeText(context, "Movie marked as un-favorite!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, R.string.UnFavorite, Toast.LENGTH_SHORT)
                             .show();
                 }
             });

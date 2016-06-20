@@ -1,12 +1,10 @@
 package com.santossingh.popularmovieapp.Fragments;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -17,14 +15,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.santossingh.popularmovieapp.Adapters.RecycleAdapter;
 import com.santossingh.popularmovieapp.Models.MovieResponse;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
 import com.santossingh.popularmovieapp.Services.DataManager;
 import com.santossingh.popularmovieapp.Utilities.AutoFitGridLayout;
+import com.santossingh.popularmovieapp.Utilities.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,17 +46,20 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
     private static final String STATE_MOVIES = "state_movies";
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-    BroadcastReceiver broadcastReceiver = null;
+    @Bind(R.id.Progressbar)
+    ProgressBar progressBar;
+    @Bind(R.id.NoView)
+    TextView NoView;
+    @Bind(R.id.swipeRefreshLayout)
+    PullRefreshLayout layout;
     private View rootView;
     private DataManager dataManager;
     private RecycleAdapter recyclerAdapter;
-    private MovieResponse movieResponse;
     private List<Results> resultsList;
-    private Results results;
+    private Results firstResult;
     private OnFragmentInteractionListener mListener;
     private int menuItemPosition;
-    private Intent intent;
-    private ConnectivityManager cm;
+    private Handler handler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,27 +117,33 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
         resultsList=new ArrayList<Results>();
         configRecycleView();
 
-        cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        layout.setRefreshStyle(PullRefreshLayout.STYLE_WATER_DROP);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new CountDownTimer(4000, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                    }
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-        if (isConnected) {
-            Toast.makeText(getActivity(), "ON", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), "OFF", Toast.LENGTH_SHORT).show();
-        }
+                    public void onFinish() {
+                        layout.setRefreshing(false);
+                        makeService("POPULAR");
+                    }
+                }.start();
+            }
+        });
 
+// refresh complete
 
         if (savedInstanceState == null) {
                 makeService("POPULAR");
                 menuItemPosition = R.id.most_Popular;
             }else{
+            progressBar.setVisibility(View.GONE);
                 resultsList=savedInstanceState.getParcelableArrayList(STATE_MOVIES);
                 menuItemPosition = savedInstanceState.getInt("menu_item");
                 recyclerAdapter.addMovieList(resultsList);
             }
-
         return rootView;
     }
 
@@ -148,13 +159,11 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
     public void makeService(String query) {
         dataManager = new DataManager();
         Call<MovieResponse> listCall;
-
         if (query == "TOP") {
             listCall = dataManager.getJSONData().getTopMovies();
         } else {
             listCall = dataManager.getJSONData().getPopMovies();
         }
-
         listCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -162,8 +171,9 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
                     Results[] results = response.body().getResults();
                     resultsList = new ArrayList<Results>(Arrays.asList(results));
                     if (resultsList != null) {
+                        setUI(true);
                         recyclerAdapter.addMovieList(resultsList);
-                        Results firstResult = resultsList.get(0);
+                        firstResult = resultsList.get(0);
                         mListener.onTabletListener(firstResult);
                     } else {
                         Toast.makeText(getActivity(), "Null Value", Toast.LENGTH_SHORT).show();
@@ -172,9 +182,11 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
             }
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
+                setUI(false);
                 Snackbar.make(rootView, R.string.No_Internet, Snackbar.LENGTH_LONG)
                         .show();
             }
+
         });
     }
 
@@ -186,7 +198,6 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
     @Override
     public void onAttach(Activity context) {
         super.onAttach(context);
-
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -195,9 +206,80 @@ public class BaseFragment extends android.app.Fragment implements RecycleAdapter
         }
     }
 
+    public void setUI(boolean b) {
+        if (b) {
+            progressBar.setVisibility(View.GONE);
+            NoView.setVisibility(View.GONE);
+
+        } else {
+            progressBar.setVisibility(View.GONE);
+            NoView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    public void runUI(boolean b) {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // TODO Auto-generated method stub
+                super.handleMessage(msg);
+                makeService("POPULAR");
+                Toast.makeText(getActivity(), "Searching Network...", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        new Thread(new Runnable() {
+
+            public void run() {
+                // TODO Auto-generated method stub
+                while (true) {
+                    try {
+                        Thread.sleep(6000);
+                        handler.sendEmptyMessage(0);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //REST OF CODE HERE//
+                }
+            }
+        }).start();
+    }
+
+    public void searchLoopForNetwork() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i == 0) {
+                    int status = Utils.getConnectionKey(getActivity());
+                    if (status == 1) {
+                        new CountDownTimer(3000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                            }
+
+                            public void onFinish() {
+                                makeService("POPULAR");
+                            }
+                        }.start();
+                        i = 1;
+                    }
+                }
+            }
+        }).start();
+    }
+
     public interface OnFragmentInteractionListener {
         void onTabletListener(Results result);
         void onFragmentInteraction(Results result);
     }
-
 }

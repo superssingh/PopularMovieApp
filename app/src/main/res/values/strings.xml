@@ -22,6 +22,9 @@
     <string name="Favorite_empty_list">Favorite list is empty!</string>
     <string name="Review_empty">Reviews not available!</string>
     <string name="Network_error">Network Error!</string>
-    <string name="No_Internet">Internet connection unavailable! Please Turn ON Internet</string>
+    <string name="No_Internet">Internet Connection Unavailable! Please Turn ON
+        Internet and Sweep Down</string>
+    <string name="UnFavorite">This movie remove from favorite list!</string>
+    <string name="FavoriteMarked">This movie marked as favorite</string>
 
 </resources>

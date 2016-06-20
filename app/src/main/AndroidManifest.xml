@@ -20,7 +20,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -52,14 +52,6 @@
             android:label="@string/title_activity_review"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
-        <!-- NetworkChangeReceiver -->
-        <receiver android:name=".Services.NetworkChangeReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>

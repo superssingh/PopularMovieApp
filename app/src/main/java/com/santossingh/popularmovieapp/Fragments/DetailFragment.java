@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +20,7 @@ import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.Models.TrailerModels.MovieTrailer;
 import com.santossingh.popularmovieapp.R;
 import com.santossingh.popularmovieapp.Services.DataManager;
+import com.santossingh.popularmovieapp.Utilities.Utils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -35,6 +34,7 @@ import retrofit2.Response;
  */
 public class DetailFragment extends android.app.Fragment {
 
+    private static final String MOVIE = "movie";
     @Bind(R.id.movieTitle) TextView movie_Title;
     @Bind(R.id.moviePoster) ImageView movie_Poster;
     @Bind(R.id.releaseDate) TextView movie_ReleaseDate;
@@ -45,10 +45,14 @@ public class DetailFragment extends android.app.Fragment {
     @Bind(R.id.BTN_play) Button play;
     @Bind(R.id.BTN_review) Button review;
     @Bind(R.id.TXT_trailerstatus) TextView trailerStatus;
-    @Bind(R.id.details) LinearLayout linearLayout;
+    @Bind(R.id.details)
+    LinearLayout details;
+    @Bind(R.id.NoNetwork)
+    ImageView NoNetwork;
 
     private String videoKey=null;
     private int movie_id;
+    private Results currentMovie;
 
     public DetailFragment() {
         setHasOptionsMenu(true);
@@ -59,13 +63,19 @@ public class DetailFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_detail,container,false);
         ButterKnife.bind(this,view);
-        Animation animation= AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in);
-        linearLayout.setAnimation(animation);
+
+        if (currentMovie != null) {
+            updateTabletUI(currentMovie);
+        }
         return view;
     }
 
     // Method for Tablet screen--------------
     public void updateTabletUI(final Results result){
+        if (View.VISIBLE == 1) {
+            setDetail_UI(true);
+        }
+        currentMovie = result;
         movie_id=result.getId();
         Picasso.with(getActivity())
                 .load("http://image.tmdb.org/t/p/w185/" + result.getPoster_path())
@@ -111,11 +121,13 @@ public class DetailFragment extends android.app.Fragment {
 
     // Method for Handset screen--------------
     public void setDataforHandsetUI(final Intent intent){
+        if (View.VISIBLE == 1) {
+            setDetail_UI(true);
+        }
         movie_id=intent.getIntExtra("movie_Id", 0);
 
         String movie_name=intent.getStringExtra("movie_Name");
         String movie_poster=intent.getStringExtra("poster_Path");
-        String movie_backposter=intent.getStringExtra("back_poster_Path");
         String release_date=intent.getStringExtra("release_Date");
         Float users_rating=intent.getFloatExtra("users_Rating", 0);
         String overview=intent.getStringExtra("overview");
@@ -191,4 +203,21 @@ public class DetailFragment extends android.app.Fragment {
         });
     }
 
+    public void setDetail_UI(boolean b) {
+        if (b) {
+            NoNetwork.setVisibility(View.GONE);
+            details.setVisibility(View.VISIBLE);
+        } else {
+            NoNetwork.setVisibility(View.VISIBLE);
+            details.setVisibility(View.GONE);
+        }
+    }
+
+    public void checkNetworkStatus() {
+        if (Utils.getConnectionStatus(getActivity())) {
+            setDetail_UI(true);
+        } else {
+            setDetail_UI(false);
+        }
+    }
 }

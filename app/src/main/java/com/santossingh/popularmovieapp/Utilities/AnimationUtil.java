@@ -15,7 +15,6 @@ public class AnimationUtil {
                 "translationY",
                 down==true ? 200 : -200, 0);
         animatorY.setDuration(1000);
-
         animationSet.playTogether(animatorY);
         animationSet.start();
     }
@@ -26,7 +25,6 @@ public class AnimationUtil {
                 "translationX",
                 down==true ? 200 : -200, 0);
         animatorY.setDuration(1000);
-
         animationSet.playTogether(animatorY);
         animationSet.start();
     }

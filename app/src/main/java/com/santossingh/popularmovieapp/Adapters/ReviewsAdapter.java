@@ -14,6 +14,9 @@ import com.santossingh.popularmovieapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by Stark on 22/04/2016.
  */
@@ -39,12 +42,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Holder> 
         ReviewsResult reviewsResult=results.get(position);
         holder.review.setText(reviewsResult.getContent());
         holder.author.setText(reviewsResult.getAuthor());
-
         // animation part ----------------
-        if (position>preposition){
+        if (position > preposition) {
             AnimationUtil.animate2(holder, true);
-        }else {
-            AnimationUtil.animate2(holder,false);
+        } else {
+            AnimationUtil.animate2(holder, false);
         }
         preposition=position;
     }
@@ -60,13 +62,14 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.Holder> 
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView review;
-        private TextView author;
+        @Bind(R.id.review_content)
+        TextView review;
+        @Bind(R.id.review_author)
+        TextView author;
         public Holder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            review=(TextView)itemView.findViewById(R.id.review_content);
-            author=(TextView)itemView.findViewById(R.id.review_author);
         }
 
         @Override

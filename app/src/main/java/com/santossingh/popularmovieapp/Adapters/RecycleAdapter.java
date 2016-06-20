@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.santossingh.popularmovieapp.Utilities.AnimationUtil;
+import com.santossingh.popularmovieapp.Database.Constant;
 import com.santossingh.popularmovieapp.Models.Results;
 import com.santossingh.popularmovieapp.R;
-import com.santossingh.popularmovieapp.Database.Constant;
+import com.santossingh.popularmovieapp.Utilities.AnimationUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,25 +20,20 @@ import java.util.List;
  * Created by Stark on 18/04/2016.
  */
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder>{
+    int preposition;
     private List<Results> resultsList=new ArrayList<Results>();
+    private Results currentMovie;
     private View rcView;
     private Context context;
     private GetDataFromAdapter callback;
-    private Results currentMovie;
-
-    int preposition;
-
-    public interface GetDataFromAdapter{
-        void onCurrentMovie(Results currentMovie);
-    }
 
     public RecycleAdapter(Context context, GetDataFromAdapter callback) {
         this.context=context;
         this.callback = callback;
     }
 
+    // create View object and pass it on Holder class constructor
     @Override
-// create View object and pass it on Holder class constructor
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         rcView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_image_fragment, parent, false);
@@ -64,14 +59,17 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder>{
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.error)
                 .into(holder.imageView);
-
-// animation part ----------------
-        if (position>preposition){
+        // animation part ----------------
+        if (position > preposition) {
             AnimationUtil.animate(holder, true);
-        }else {
-            AnimationUtil.animate(holder,false);
+        } else {
+            AnimationUtil.animate(holder, false);
         }
         preposition=position;
+    }
+
+    public interface GetDataFromAdapter {
+        void onCurrentMovie(Results currentMovie);
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -88,10 +86,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.Holder>{
         public void onClick(View v) {
             int position = getAdapterPosition();
             currentMovie=resultsList.get(position);
-// callback of onCurrentMovie BaseFragment
+            // callback of onCurrentMovie BaseFragment
             callback.onCurrentMovie(currentMovie);
         }
     }
 
 }
-

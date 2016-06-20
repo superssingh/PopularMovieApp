@@ -17,24 +17,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReviewActivity extends AppCompatActivity {
+
+    @Bind(R.id.ReviewRecyclerView)
     RecyclerView recyclerView;
     ReviewsAdapter recyclerAdapter;
     DataManager dataManager;
     private List<ReviewsResult> resultsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        recyclerView=(RecyclerView)findViewById(R.id.ReviewRecyclerView);
-        String movie_id=getIntent().getStringExtra("movie_id");
+        ButterKnife.bind(this);
+        String movie_id = getIntent().getStringExtra("movie_id");
         configRecycleView(movie_id);
     }
 
@@ -65,12 +69,10 @@ public class ReviewActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<MovieReviews> call, Throwable t) {
                 Toast.makeText(ReviewActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }
